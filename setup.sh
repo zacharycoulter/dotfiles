@@ -7,9 +7,6 @@ NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Ho
 (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/zacharycoulter/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# install git
-brew install git
-
 # install gnu stow
 brew install stow
 

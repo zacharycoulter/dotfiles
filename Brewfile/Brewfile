@@ -1,6 +1,5 @@
 tap "epk/epk"
 tap "homebrew/bundle"
-brew "git"
 brew "fzf"
 brew "go"
 brew "neovim"
