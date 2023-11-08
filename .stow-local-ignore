@@ -1,0 +1,4 @@
+^/*.md
+^/*.sh
+\.DS_Store
+^/.git/
