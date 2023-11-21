@@ -5,8 +5,9 @@ local alert = require("hs.alert")
 local LeftRightHotkey = require("LeftRightHotkey")
 
 local module = {
-    excludedApps = { "^$" },
-    sort = filter.sortByFocusedLast,
+    enabled = true,
+    excludedApps = { "^$", "^Electron$" },
+    sort = filter.sortByCreatedLast,
     middleSplit = 50,
     window = {},
     layout = "tile",
@@ -75,6 +76,7 @@ module.changeLayout = function(newLayout)
 end
 
 module.setLayout = function()
+    if module.enabled == false then return end
     local layout = module.layouts[module.layout]
     local matrix = layout.matrix[#module.windows] or layout.matrix[1]
 
@@ -125,7 +127,7 @@ end
 module.keybindings = {
     {
         { "lctrl", "lcmd" },
-        "return",
+        "space",
         function()
             if module.layout == "maximized" then
                 module.changeLayout("tile")
@@ -203,10 +205,49 @@ module.keybindings = {
             end
         end
     },
+    {
+        { "lctrl", "lcmd" },
+        "d",
+        function()
+            module.enabled = not module.enabled
+            alert.show("Window management " .. (module.enabled and "enabled" or "disabled"))
+            if module.enabled then
+                module.setlayout()
+            end
+        end
+    },
+    {
+        { "lctrl", "lcmd" },
+        "r",
+        function()
+            if module.enabled then
+                module.setlayout()
+            end
+        end
+    },
+    {
+        { "lctrl", "lcmd" },
+        "return",
+        function()
+            local focusedWindow = module.getFocusedWindow()
+            if focusedWindow then
+                table.insert(module.windows, 1, focusedWindow.window)
+                table.remove(module.windows, focusedWindow.index + 1)
+                module.setLayout()
+            end
+        end
+    },
 }
 
-module.onEvent = function()
-    module.windows = module.filter:getWindows()
+module.onEvent = function(win, _, event)
+    local winId = module.getWindowIndex(win)
+
+    if winId and event == 'windowNotOnScreen' then
+        table.remove(module.windows, winId)
+    elseif not winId and event == 'windowOnScreen' then
+        table.insert(module.windows, #module.windows + 1, win)
+    end
+
     module.setLayout()
 end
 
@@ -222,10 +263,9 @@ module.start = function()
         })
         :setSortOrder(module.sort)
         :subscribe(
-            { 'windowMoved', 'windowMinimized', 'windowUnminimized', 'windowsChanged' },
+            { 'windowMoved', 'windowNotOnScreen', 'windowOnScreen' },
             module.onEvent)
 
-    module.filter.screenWatcher = screen.watcher.new(module.onEvent):start()
     module.windows = module.filter:getWindows()
     module.setLayout()
 
@@ -236,7 +276,6 @@ end
 
 module.stop = function()
     module.filter:unsubscribeAll()
-    module.filter.screenWatcher:stop()
 end
 
 return module
