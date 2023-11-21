@@ -38,10 +38,10 @@ config.background = {
 config.window_decorations = "RESIZE"
 
 config.window_padding = {
-    top = 12,
-    bottom = 12,
-    left = 16,
-    right = 16
+    top = 16,
+    bottom = 0,
+    left = 14,
+    right = 14
 }
 
 config.window_close_confirmation = "NeverPrompt"
