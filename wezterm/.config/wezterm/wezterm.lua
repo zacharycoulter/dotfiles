@@ -15,24 +15,23 @@ config.font_size = 14
 config.enable_tab_bar = false
 
 config.background = {
+    -- {
+    --     source = {
+    --         File = "/Users/zacharycoulter/Sonoma.png",
+    --     },
+    --     height = 'Cover',
+    --     width = 'Cover',
+    --     repeat_x = 'NoRepeat',
+    --     repeat_y = 'NoRepeat',
+    --     vertical_align = 'Middle',
+    --     horizontal_align = 'Center',
+    -- },
     {
         source = {
-            File = "/Users/zacharycoulter/Sonoma.png",
-        },
-        height = 'Cover',
-        width = 'Cover',
-        repeat_x = 'NoRepeat',
-        repeat_y = 'NoRepeat',
-        vertical_align = 'Middle',
-        horizontal_align = 'Center',
-    },
-    {
-        source = {
-            Color = "#11111b"
+            Color = "#000"
         },
         width = '100%',
         height = '100%',
-        opacity = 0.8,
     },
 }
 
