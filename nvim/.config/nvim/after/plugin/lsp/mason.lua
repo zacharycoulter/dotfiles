@@ -49,7 +49,7 @@ mason.setup()
 
 mason_lspconfig.setup({
     settings = {
-        lua = {
+        Lua = {
             diagnostics = {
                 globals = { "vim", "hs" },
             },
@@ -68,10 +68,11 @@ mason_lspconfig.setup({
     automatic_installation = true, -- not the same as ensure_installed
     mason_lspconfig.setup_handlers({
         function(server_name)
-            require("lspconfig")[server_name].setup({
+            local setup = {
                 on_attach = on_attach,
                 capabilities = capabilities,
-            })
+            }
+            require("lspconfig")[server_name].setup(setup)
         end,
     }), -- install servers with lspconfig
 })
