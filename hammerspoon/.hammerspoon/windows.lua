@@ -63,6 +63,26 @@ local module = {
             matrix = {
                 {
                     { 1, 1, 0, 0 }
+                },
+            },
+            after = function()
+                local focusedWindow = window.frontmostWindow()
+                focusedWindow:maximize()
+            end
+        },
+        thirds = {
+            matrix = {
+                {
+                    { 1, 1, 0, 0 },
+                },
+                {
+                    { 1, -1, 0,  0 },
+                    { 1, -1, -1, 0 },
+                },
+                {
+                    { 1, 1 / 3, 0,     0 },
+                    { 1, 1 / 3, 1 / 3, 0 },
+                    { 1, 1 / 3, 2 / 3, 0 },
                 }
             },
         }
@@ -129,10 +149,18 @@ module.keybindings = {
         { "lctrl", "lcmd" },
         "space",
         function()
-            if module.layout == "maximized" then
-                module.changeLayout("tile")
-            else
-                module.changeLayout("maximized")
+            for key, _ in pairs(module.layouts) do
+                if key == module.layout then
+                    local nextKey = next(module.layouts, key)
+                    if nextKey then
+                        alert.show('next: ' .. nextKey)
+                        module.changeLayout(nextKey)
+                    else
+                        alert.show('first: ' .. next(module.layouts, nil))
+                        module.changeLayout(next(module.layouts, nil))
+                    end
+                    return
+                end
             end
         end
     },
@@ -211,18 +239,15 @@ module.keybindings = {
         function()
             module.enabled = not module.enabled
             alert.show("Window management " .. (module.enabled and "enabled" or "disabled"))
-            if module.enabled then
-                module.setlayout()
-            end
+            module.setLayout()
         end
     },
     {
         { "lctrl", "lcmd" },
-        "r",
+        "g",
         function()
-            if module.enabled then
-                module.setlayout()
-            end
+            module.setLayout()
+            alert.show("Window management reloaded")
         end
     },
     {
