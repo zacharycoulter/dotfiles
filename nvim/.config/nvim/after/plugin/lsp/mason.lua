@@ -48,13 +48,6 @@ local capabilities = cmp_nvim_lsp.default_capabilities()
 mason.setup()
 
 mason_lspconfig.setup({
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { "vim", "hs" },
-            },
-        },
-    },
     -- list of servers for mason to install
     ensure_installed = {
         "tsserver",
