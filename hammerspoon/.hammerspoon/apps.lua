@@ -21,10 +21,10 @@ module.start = function()
     for key, appName in pairs(module.mappings) do
         LeftRightHotkey.bind({ 'rOption' }, key, function()
             local app = application.get(appName)
-            if app and app:mainWindow() and app:mainWindow():isMinimized() == false then
-                app:mainWindow():minimize()
-            else
+            if not app or app:isHidden() then
                 application.launchOrFocus(appName)
+            else
+                app:hide()
             end
         end)
     end
