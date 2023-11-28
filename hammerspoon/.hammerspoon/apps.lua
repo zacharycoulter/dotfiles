@@ -13,7 +13,8 @@ local module = {
         T = 'Trello',
         Z = 'Zoom',
         C = 'Calendar',
-        M = 'Mail'
+        E = 'Mail',
+        M = 'Music',
     }
 }
 
