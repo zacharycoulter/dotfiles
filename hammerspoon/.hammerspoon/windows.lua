@@ -6,7 +6,7 @@ local LeftRightHotkey = require("LeftRightHotkey")
 
 local module = {
     enabled = true,
-    excludedApps = { "^$", "^Electron$" },
+    excludedApps = { "Electron", "System Settings" },
     sort = filter.sortByCreatedLast,
     middleSplit = 50,
     window = {},
@@ -153,10 +153,8 @@ module.keybindings = {
                 if key == module.layout then
                     local nextKey = next(module.layouts, key)
                     if nextKey then
-                        alert.show('next: ' .. nextKey)
                         module.changeLayout(nextKey)
                     else
-                        alert.show('first: ' .. next(module.layouts, nil))
                         module.changeLayout(next(module.layouts, nil))
                     end
                     return
@@ -280,16 +278,17 @@ module.start = function()
     module.filter = window.filter.new()
         :setDefaultFilter()
         :setOverrideFilter({
-            visible      = true,
-            fullscreen   = false,
-            currentSpace = true,
-            rejectTitles = module.excludedApps,
-            allowRoles   = { 'AXStandardWindow' },
+            rejectTitles = { "^$" },
+            allowRoles   = '*',
         })
         :setSortOrder(module.sort)
         :subscribe(
             { 'windowMoved', 'windowNotOnScreen', 'windowOnScreen' },
             module.onEvent)
+
+    for _, app in ipairs(module.excludedApps) do
+        module.filter:rejectApp(app)
+    end
 
     module.windows = module.filter:getWindows()
     module.setLayout()
