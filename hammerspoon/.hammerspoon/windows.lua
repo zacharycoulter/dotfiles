@@ -6,7 +6,7 @@ local LeftRightHotkey = require("LeftRightHotkey")
 
 local module = {
     enabled = true,
-    excludedApps = { "Electron", "System Settings" },
+    excludedApps = { "Electron", "System Settings", "1Password", "SearchAhoy" },
     sort = filter.sortByCreatedLast,
     middleSplit = 50,
     window = {},
