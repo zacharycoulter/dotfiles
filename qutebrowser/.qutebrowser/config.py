@@ -31,6 +31,7 @@ c.fonts.web.size.default = 20
 c.fonts.web.size.default_fixed = 16
 
 # c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.bg = '#ffffff'
 
 c.qt.highdpi = True
 
