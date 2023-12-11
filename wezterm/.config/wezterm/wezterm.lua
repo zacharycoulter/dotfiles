@@ -83,6 +83,26 @@ config.keys = {
         mods = 'CMD',
         action = wezterm.action.QuitApplication,
     },
+    {
+        key = 'e',
+        mods = 'CMD',
+        action = wezterm.action{SendString = "nvim .\n"},
+    },
+    {
+        key = 'z',
+        mods = 'CMD',
+        action = wezterm.action{SendString = "fzf\n"},
+    },
+    {
+        key = 'a',
+        mods = 'CMD',
+        action = wezterm.action{SendString = "tmux a\n"},
+    },
+    {
+        key = 't',
+        mods = 'CMD',
+        action = wezterm.action{SendString = "tmux new -s ${PWD##*/}\n"},
+    },
 }
 
 return config
