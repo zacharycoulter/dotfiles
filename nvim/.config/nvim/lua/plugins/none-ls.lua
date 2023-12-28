@@ -1,0 +1,17 @@
+return {
+	"nvimtools/none-ls.nvim",
+	event = "BufReadPre",
+	config = function()
+		local null_ls = require("null-ls")
+		local formatting = null_ls.builtins.formatting
+		local diagnostics = null_ls.builtins.diagnostics
+		null_ls.setup({
+			sources = {
+				formatting.stylua,
+				formatting.prettier,
+				diagnostics.eslint_d,
+			},
+		})
+		vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
+	end,
+}
