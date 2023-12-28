@@ -71,4 +71,5 @@ return require("packer").startup(function(use)
 
 	-- misc
 	use("github/copilot.vim")
+    use("joerdav/templ.vim")
 end)

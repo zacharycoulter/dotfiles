@@ -20,7 +20,7 @@ local on_attach = function(_, bufnr)
     vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)                            -- restart lsp server
 
     vim.api.nvim_create_autocmd("BufWritePre", {
-        pattern = { "*.go" },
+        pattern = { "*.go", "*.templ" },
         callback = function()
             local clients = vim.lsp.buf_get_clients()
             for _, client in pairs(clients) do
@@ -38,11 +38,18 @@ local on_attach = function(_, bufnr)
                     end
                 end
             end
+            vim.lsp.buf.format()
         end,
     })
 end
 
 local capabilities = cmp_nvim_lsp.default_capabilities()
+
+vim.filetype.add({
+    extension = {
+        templ = "templ",
+    },
+})
 
 -- enable mason
 mason.setup()
@@ -56,6 +63,7 @@ mason_lspconfig.setup({
         "svelte",
         "tailwindcss",
         "lua_ls",
+        "templ"
     },
     -- auto-install configured servers (with lspconfig)
     automatic_installation = true, -- not the same as ensure_installed
@@ -65,6 +73,18 @@ mason_lspconfig.setup({
                 on_attach = on_attach,
                 capabilities = capabilities,
             }
+            if (server_name == "tailwindcss") then
+                setup = {
+                    on_attach = on_attach,
+                    capabilities = capabilities,
+                    filetypes = { "html", "css", "javascript", "javascriptreact", "typescript", "typescriptreact", "templ" },
+                    init_options = {
+                        userLanguages = {
+                            templ = "html"
+                        }
+                    }
+                }
+            end
             require("lspconfig")[server_name].setup(setup)
         end,
     }), -- install servers with lspconfig

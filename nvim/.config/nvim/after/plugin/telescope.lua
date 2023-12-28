@@ -3,7 +3,7 @@ local actions = require("telescope.actions")
 
 telescope.setup({
     defaults = {
-        file_ignore_patterns = { ".git/", ".cache", "%.pdf", "%.mkv", "%.mp4", "%.zip", "node_modules/" },
+        file_ignore_patterns = { ".git/", ".cache", "%.pdf", "%.mkv", "%.mp4", "%.zip", "node_modules/", "_templ.go", "tmp/" },
         mappings = {
             i = {
                 ["<C-k>"] = actions.move_selection_previous,                       -- move to prev result
@@ -19,7 +19,7 @@ telescope.setup({
     },
     extensions = {
         file_browser = {
-            hijack_netrw = true,
+            respect_gitignore = true
         },
     },
 })
