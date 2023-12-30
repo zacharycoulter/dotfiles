@@ -5,6 +5,7 @@ return {
 	lazy = false,
 	config = function()
 		require("catppuccin").setup({
+			flavour = "mocha",
 			term_colors = true,
 			transparent_background = true,
 			styles = {
