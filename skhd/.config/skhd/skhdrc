@@ -1,7 +1,8 @@
 ralt + rcmd - r : skhd --reload
 
 ralt - return : osascript ~/.config/skhd/osascripts/hideShowApp.scpt Wezterm
-ralt - a : osascript ~/.config/skhd/osascripts/hideShowApp.scpt Arc
+# ralt - a : osascript ~/.config/skhd/osascripts/hideShowApp.scpt Arc
+ralt - b : osascript ~/.config/skhd/osascripts/hideShowApp.scpt Firefox
 ralt - d : osascript ~/.config/skhd/osascripts/hideShowApp.scpt DataGrip
 ralt - s : osascript ~/.config/skhd/osascripts/hideShowApp.scpt Slack
 ralt - t : osascript ~/.config/skhd/osascripts/hideShowApp.scpt Trello
