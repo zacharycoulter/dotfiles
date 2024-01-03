@@ -5,3 +5,4 @@ sudo yabai --load-sa
 
 # default layout
 yabai -m config layout bsp
+yabai -m config external_bar all:38:0 
