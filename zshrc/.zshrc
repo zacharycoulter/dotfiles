@@ -16,3 +16,8 @@ source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 DISABLE_AUTO_TITLE=true
 
+export PATH="$HOME/go/bin:$PATH"
+export XDG_CONFIG_HOME="$HOME/.config"
+
+# bun completions
+[ -s "/Users/zacharycoulter/.bun/_bun" ] && source "/Users/zacharycoulter/.bun/_bun"
