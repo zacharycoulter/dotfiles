@@ -1,26 +1,26 @@
 return {
-    "nvimtools/none-ls.nvim",
-    event = "VeryLazy",
+    "jay-babu/mason-null-ls.nvim",
+    dependencies = {
+        "williamboman/mason.nvim",
+        "nvimtools/none-ls.nvim",
+    },
     config = function()
-        local null_ls = require("null-ls")
-        local formatting = null_ls.builtins.formatting
-        local diagnostics = null_ls.builtins.diagnostics
-        null_ls.setup({
-            sources = {
-                formatting.stylua,
-                formatting.prettier,
-                diagnostics.eslint_d.with({
-                    condition = function(utils)
-                        return utils.root_has_file(".eslintrc.js")
-                            or utils.root_has_file(".eslintrc.cjs")
-                            or utils.root_has_file(".eslintrc.ts")
-                            or utils.root_has_file(".eslintrc.json")
-                            or utils.root_has_file(".eslintrc")
-                            or utils.root_has_file(".eslintrc.yml")
-                    end,
-                }),
+        require("mason-null-ls").setup({
+            handlers = {},
+            ensure_installed = {
+                "stylua",
+                "beautysh",
+                "prettier",
+                "gofmt",
+                "goimports",
+                "templ",
+                "hadolint",
+                "eslint",
             },
+            automatic_installation = true,
         })
+        require("null-ls").setup()
+
         vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
     end,
 }
