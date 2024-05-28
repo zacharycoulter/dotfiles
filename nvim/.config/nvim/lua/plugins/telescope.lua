@@ -10,12 +10,49 @@ return {
         "nvim-tree/nvim-web-devicons",
         {
             "nvim-telescope/telescope-fzy-native.nvim",
-            build =
-            "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+            build = "make",
         },
     },
     config = function()
         local telescope = require("telescope")
+        telescope.setup({
+            defaults = {
+                file_ignore_patterns = {
+                    ".git/",
+                    ".cache",
+                    "%.pdf",
+                    "%.mkv",
+                    "%.mp4",
+                    "%.zip",
+                    "node_modules/",
+                    "%_templ.go",
+                    ".DS_Store",
+                    ".git/",
+                    ".tmp/",
+                    ".task/",
+                },
+            },
+            pickers = {
+                find_files = {
+                    hidden = true,
+                },
+                oldfiles = {
+                    only_cwd = true,
+                },
+            },
+            extensions = {
+                file_browser = {
+                    previewer = false,
+                    cwd = "%:p:h",
+                    initial_mode = "insert",
+                    select_buffer = true,
+                    hijack_netrw = true,
+                    hidden = true,
+                    git_status = true,
+                    color_devicons = true,
+                },
+            },
+        })
         telescope.load_extension("fzy_native")
         telescope.load_extension("file_browser")
         telescope.load_extension("ui-select")
@@ -26,11 +63,6 @@ return {
         vim.keymap.set("n", "<leader>fs", builtin.grep_string, {})
         vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
         vim.keymap.set("n", "<leader>fo", builtin.oldfiles, {})
-        vim.api.nvim_set_keymap(
-            "n",
-            "<leader>fb",
-            ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
-            { noremap = true }
-        )
+        vim.keymap.set("n", "<leader>fb", telescope.extensions.file_browser.file_browser, { noremap = true })
     end,
 }
