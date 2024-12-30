@@ -1,6 +1,6 @@
 [user]
   name = Zachary Coulter
-  email = 8799143+zacharycoulter@users.noreply.github.com
+  email = zachary.coulter@joinappex.com
   signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBVGqgr6jp7VINEE3DMZBZgAKS10aEv7RKTimQL+LtMg
 
 [gpg]
@@ -11,6 +11,3 @@
 
 [commit]
   gpgsign = true
-
-[includeIf "gitdir:~/git/work/**/.git"]
-    path = ~/.gitconfig-work
