@@ -18,7 +18,6 @@ return {
         telescope.setup({
             defaults = {
                 file_ignore_patterns = {
-                    ".git/",
                     ".cache",
                     "%.pdf",
                     "%.mkv",
@@ -27,7 +26,6 @@ return {
                     "node_modules/",
                     "%_templ.go",
                     ".DS_Store",
-                    ".git/",
                     ".tmp/",
                     ".task/",
                 },
