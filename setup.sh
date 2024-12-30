@@ -21,10 +21,6 @@ stow -t ~ */
 # install apps from brewfile
 brew bundle install
 
-# install packer for nvim and install plugins
-git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-
 # install tmux plugins
 $(brew --prefix tpm)/share/tpm/bin/install_plugins
 
