@@ -12,7 +12,7 @@ link-url = true
 macos-titlebar-proxy-icon = hidden
 macos-window-shadow = false
 
-window-padding-x = 5
+window-padding-x = 10
 window-padding-y = 5
 
 background-opacity = 0.85
