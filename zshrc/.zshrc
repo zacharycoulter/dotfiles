@@ -1,23 +1,17 @@
-alias v="nvim"
-alias vi="nvim"
-alias vim="nvim"
-alias t='tmux'
-
+source <(fzf --zsh)
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
+export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
+
 export NVM_DIR="$HOME/.nvm"
-[ -s "$(brew --prefix nvm)/nvm.sh" ] && \. "$(brew --prefix nvm)/nvm.sh"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export EDITOR="nvim"
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-DISABLE_AUTO_TITLE=true
-
-export PATH="$HOME/go/bin:$PATH"
-export XDG_CONFIG_HOME="$HOME/.config"
+export PATH="$HOME/.local/bin:$PATH"
 
 # bun completions
-[ -s "/Users/zacharycoulter/.bun/_bun" ] && source "/Users/zacharycoulter/.bun/_bun"
+[ -s "/Users/zachary.coulter/.bun/_bun" ] && source "/Users/zachary.coulter/.bun/_bun"
