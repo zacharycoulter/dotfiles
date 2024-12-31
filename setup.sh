@@ -39,3 +39,9 @@ defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true	# Ex
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true	# Expanding the save panel
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true	# Expanding the save panel
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false	# Disabling the warning when changing a file extension
+
+# Aerospace commands
+defaults write -g NSWindowShouldDragOnGesture -bool true # Move windows by holding ctrl+cmd and dragging any part of the window
+defaults write com.apple.dock expose-group-apps -bool true # Group windows by application in Mission Control
+defaults write com.apple.spaces spans-displays -bool true # Span displays with separate spaces
+killall SystemUIServer
