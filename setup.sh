@@ -10,22 +10,11 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # install gnu stow
 brew install stow
 
-# clone dotfiles repo
-mkdir -p ~/Git/zacharycoulter/dotfiles
-git clone https://github.com/zacharycoulter/dotfiles.git ~/Git/zacharycoulter/dotfiles
-
 # run stow
-cd ~/Git/zacharycoulter/dotfiles
 stow -t ~ */
 
 # install apps from brewfile
-brew bundle install
-
-# install tmux plugins
-$(brew --prefix tpm)/share/tpm/bin/install_plugins
-
-# use nvm to set up node
-nvm install node
+brew bundle install --file=./Brewfile/Brewfile_2024-12-30
 
 # set macos defaults
 defaults write -g _HIEnableThemeSwitchHotKey 1 # Set dark mode

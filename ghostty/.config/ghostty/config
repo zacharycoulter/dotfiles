@@ -15,7 +15,7 @@ macos-window-shadow = false
 window-padding-x = 10
 window-padding-y = 5
 
-background-opacity = 0.85
+background-opacity = 0.8
 background-blur-radius = 20
 
 keybind = cmd+a=text:tmux a\n

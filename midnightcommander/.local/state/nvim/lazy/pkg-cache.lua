@@ -1,0 +1,1 @@
+return {version=12,pkgs={{name="plenary.nvim",source="lazy",file="community",dir="/Users/zacharycoulter/.local/share/nvim/lazy/plenary.nvim",spec={"nvim-lua/plenary.nvim",lazy=true,},},{name="rest.nvim",source="rockspec",file="rest.nvim-scm-1.rockspec",dir="/Users/zacharycoulter/.local/share/nvim/lazy/rest.nvim",spec={"rest.nvim",build="rockspec",},},},}

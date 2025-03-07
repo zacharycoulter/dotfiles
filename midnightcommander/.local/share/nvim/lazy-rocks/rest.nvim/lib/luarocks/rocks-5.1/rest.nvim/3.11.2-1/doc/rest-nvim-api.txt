@@ -1,0 +1,428 @@
+==============================================================================
+rest.nvim Lua API                                                *rest-nvim.api*
+
+
+The Lua API for rest.nvim
+Intended for use by third-party modules that extend its functionalities.
+
+
+api.VERSION                                                        *api.VERSION*
+    rest.nvim API version, equals to the current rest.nvim version. Meant to be used by modules later
+
+    Type: ~
+        (string)
+
+    See: ~
+        |vim.version|
+
+
+api.namespace                                                    *api.namespace*
+    rest.nvim namespace used for buffer highlights
+
+    Type: ~
+        (number)
+
+    See: ~
+        |vim.api.nvim_create_namespace|
+
+
+                                                     *api.register_rest_autocmd*
+api.register_rest_autocmd({events}, {cb}, {description})
+
+
+    Parameters: ~
+        {events}       (string[])                Autocommand events, see `:h events`
+        {cb}           (string|fun(args:table))  Autocommand lua callback, runs a Vimscript command instead if it is a `string`
+        {description}  (string)                  Autocommand description
+
+
+                                                  *api.register_rest_subcommand*
+api.register_rest_subcommand({name}, {cmd})
+    Register a new `:Rest` subcommand
+
+    Parameters: ~
+        {name}  (string)   The name of the subcommand to register
+        {cmd}   (RestCmd)
+
+
+api.register_rest_client()                            *api.register_rest_client*
+
+
+==============================================================================
+rest.nvim client module                                       *rest-nvim.client*
+
+rest.Client                                                        *rest.Client*
+    Client to send request
+
+    Fields: ~
+        {name}       (string)                                    name of the client
+        {request}    (fun(req:rest.Request):nio.control.Future)  Sends request and return the response asynchronously
+        {available}  (fun(req:rest.Request):boolean)             Check if client can handle given request
+
+
+clients.register_client()                              *clients.register_client*
+
+
+clients.get_available_clients({req})             *clients.get_available_clients*
+    Find all registered clients available for given request
+
+    Parameters: ~
+        {req}  (rest.Request)
+
+    Returns: ~
+        (rest.Client[])
+
+
+==============================================================================
+rest.nvim http syntax parsing module                          *rest-nvim.parser*
+
+
+ rest.nvim `.http` syntax parsing module.
+ rest.nvim uses `tree-sitter-http` as a core parser for `.http` syntax
+
+
+Source                                                                  *Source*
+
+    Type: ~
+        integer|string
+
+
+                                                             *parser.parse_body*
+parser.parse_body({body_node}, {source}, {context})
+
+    Parameters: ~
+        {body_node}  (TSNode)
+        {source}     (Source)
+        {context}    (rest.Context)
+
+    Returns: ~
+        (rest.Request.Body|nil)
+
+
+                                                           *parser.eval_context*
+parser.eval_context({source}, {ctx}, {endline})
+    In-place variables can be evaluated in loaded buffers due to treesitter limitations
+
+    Parameters: ~
+        {source}   (integer)
+        {ctx}      (rest.Context)
+        {endline}  (number)        zero-based line number
+
+
+parser.get_request_node_by_cursor()          *parser.get_request_node_by_cursor*
+    @return TSNode? node TSNode with type `section`
+
+
+parser.get_all_request_nodes({source})            *parser.get_all_request_nodes*
+
+    Parameters: ~
+        {source}  (Source)
+
+    Returns: ~
+        (TSNode[])
+
+
+parser.get_request_node_by_name()              *parser.get_request_node_by_name*
+    @return TSNode?
+
+
+                                             *parser.parse_variable_declaration*
+parser.parse_variable_declaration({vd_node}, {source}, {ctx})
+
+    Parameters: ~
+        {vd_node}  (TSNode)
+        {source}   (Source)
+        {ctx}      (rest.Context)
+
+
+                                               *parser.parse_pre_request_script*
+parser.parse_pre_request_script({node}, {source}, {context})
+
+    Parameters: ~
+        {node}     (TSNode)
+        {source}   (Source)
+        {context}  (rest.Context)
+
+
+                                                  *parser.parse_request_handler*
+parser.parse_request_handler({node}, {source}, {context})
+
+    Parameters: ~
+        {node}     (TSNode)
+        {source}   (Source)
+        {context}  (rest.Context)  @return function?
+
+
+                                                    *parser.parse_redirect_path*
+parser.parse_redirect_path({node}, {source}, {ctx})
+
+    Parameters: ~
+        {node}    (TSNode)
+        {source}  (Source)
+        {ctx}     (rest.Context)  @return function?
+
+
+parser.get_request_names({source})                    *parser.get_request_names*
+
+    Parameters: ~
+        {source}  (Source)
+
+    Returns: ~
+        (string[])
+
+
+parser.get_request_node({name})                        *parser.get_request_node*
+
+    Parameters: ~
+        {name}  (string|nil)  @return TSNode?
+
+
+parser.parse({node}, {source}, {ctx?})                            *parser.parse*
+    Parse the request node and create Request object. Returns `nil` if parsing
+    failed.
+
+    Parameters: ~
+        {node}    (TSNode)        Tree-sitter request node
+        {source}  (Source)
+        {ctx?}    (rest.Context)
+
+    Returns: ~
+        (rest.Request|nil)
+
+
+==============================================================================
+script runner client for rest.nvim                            *rest-nvim.script*
+
+
+ Script runner client for rest.nvim.
+ This can be external module like `rest.client`
+
+
+rest.ScriptClient                                            *rest.ScriptClient*
+
+
+script.load_pre_req_hook({str}, {ctx})                *script.load_pre_req_hook*
+
+    Parameters: ~
+        {str}  (string)
+        {ctx}  (rest.Context)
+
+
+script.load_post_req_hook({str}, {ctx})              *script.load_post_req_hook*
+
+    Parameters: ~
+        {str}  (string)
+        {ctx}  (rest.Context)
+
+
+==============================================================================
+Cookie handler module                                     *rest-nvim.cookie_jar*
+
+rest.Cookie                                                        *rest.Cookie*
+
+    Fields: ~
+        {name}     (string)
+        {value}    (string)
+        {domain}   (string)
+        {path}     (string)
+        {expires}  (integer)
+        {secure}   (boolean)
+
+
+M.load_jar()                                                        *M.load_jar*
+    Load Cookie jar from rest-nvim.cookies file
+
+
+M.update_jar({req_url}, {res})                                    *M.update_jar*
+    Save cookies from response
+    Request is provided as a context
+
+    Parameters: ~
+        {req_url}  (string)
+        {res}      (rest.Response)
+
+
+M.save_jar()                                                        *M.save_jar*
+    Save current cookie jar to cookies file
+
+
+M.load_cookies({req})                                           *M.load_cookies*
+    Load cookies for request
+
+    Parameters: ~
+        {req}  (rest.Request)
+
+
+==============================================================================
+rest.nvim utilities                                            *rest-nvim.utils*
+
+
+ rest.nvim utility functions
+
+
+utils.escape({str}, {only_necessary?})                            *utils.escape*
+    Encodes a string into its escaped hexadecimal representation
+
+    Parameters: ~
+        {str}              (string)   Binary string to be encoded
+        {only_necessary?}  (boolean)  Encode only necessary characters
+
+    Returns: ~
+        (string)
+
+
+utils.url_decode({str})                                       *utils.url_decode*
+
+    Parameters: ~
+        {str}  (string)
+
+
+utils.file_exists({path})                                    *utils.file_exists*
+    Check if a file exists in the given `path`
+
+    Parameters: ~
+        {path}  (string)  file path
+
+    Returns: ~
+        (boolean)
+
+
+utils.read_file({path})                                        *utils.read_file*
+    Read a file if it exists
+
+    Parameters: ~
+        {path}  (string)  file path
+
+    Returns: ~
+        (string)
+
+
+utils.parse_http_time()                                  *utils.parse_http_time*
+
+
+utils.parse_url({url})                                         *utils.parse_url*
+    parse url to domain and path
+    path will be fallback to "/" if not found
+
+    Parameters: ~
+        {url}  (string)
+
+    Returns: ~
+        (string)  domain
+        (string)  path
+
+
+                                                       *utils.ts_highlight_node*
+utils.ts_highlight_node({bufnr}, {node}, {ns}, {timeout})
+
+    Parameters: ~
+        {bufnr}    (number)
+        {node}     (TSNode)
+        {ns}       (number)
+        {timeout}  (number)
+
+
+utils.ts_get_parser({source})                              *utils.ts_get_parser*
+
+    Parameters: ~
+        {source}  (string|integer)
+
+    Returns: ~
+        (vim.treesitter.LanguageTree)
+
+
+utils.ts_parse_source({source})                          *utils.ts_parse_source*
+
+    Parameters: ~
+        {source}  (string|integer)
+
+    Returns: ~
+        (vim.treesitter.LanguageTree)
+        (TSTree)
+
+
+utils.ts_find()                                                  *utils.ts_find*
+    @return TSNode?
+
+
+utils.ts_upper_node({node})                                *utils.ts_upper_node*
+
+    Parameters: ~
+        {node}  (TSNode)
+
+
+                                                            *utils.ts_node_spec*
+utils.ts_node_spec({node}, {expected_type})
+
+    Parameters: ~
+        {node}           (TSNode)
+        {expected_type}  (string)
+
+    Returns: ~
+        (table)
+
+
+utils.ts_node_error_log({node})                        *utils.ts_node_error_log*
+    Create error log for TSNode that has a syntax error
+
+    Parameters: ~
+        {node}  (TSNode)  Tree-sitter node
+
+    Returns: ~
+        (string)
+
+
+                                                        *utils.nvim_lazy_set_wo*
+utils.nvim_lazy_set_wo({bufnr}, {name}, {value})
+    Set window-option to specific buffer
+    Some options leaves in `vim.wo` while they are actually tied to buffers
+    see: <https://github.com/neovim/neovim/issues/11525> and `:h local-options`
+
+    Parameters: ~
+        {bufnr}  (number)
+        {name}   (string)
+        {value}  (any)
+
+
+utils.gq_lines({lines}, {filetype})                             *utils.gq_lines*
+    format lines using native vim `gq` command
+
+    Parameters: ~
+        {lines}     (string[])
+        {filetype}  (string)
+
+    Returns: ~
+        (string[])
+        (boolean)   Whether formatting is done with `gq`
+
+
+==============================================================================
+rest.nvim logger                                              *rest-nvim.logger*
+
+
+Logging library for rest.nvim, inspired by nvim-neorocks/rocks.nvim
+Intended for use by internal and third-party modules.
+
+
+logger.trace()                                                    *logger.trace*
+
+
+logger.debug()                                                    *logger.debug*
+
+
+logger.info()                                                      *logger.info*
+
+
+logger.warn()                                                      *logger.warn*
+
+
+logger.error()                                                    *logger.error*
+
+
+logger.set_log_level()                                    *logger.set_log_level*
+
+    See: ~
+        |vim.log.levels|
+
+
+vim:tw=78:ts=8:noet:ft=help:norl:

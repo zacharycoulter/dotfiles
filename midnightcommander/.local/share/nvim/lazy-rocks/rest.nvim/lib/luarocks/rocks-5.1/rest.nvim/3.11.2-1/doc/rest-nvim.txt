@@ -1,0 +1,250 @@
+==============================================================================
+rest.nvim                                                            *rest-nvim*
+
+
+ A fast and asynchronous Neovim HTTP client written in Lua
+
+
+==============================================================================
+Table of Contents                                               *rocks-contents*
+
+rest.nvim ·························································· |rest-nvim|
+rest.nvim user commands ··································· |rest-nvim.commands|
+rest.nvim user events ······································· |rest-nvim.events|
+rest.nvim configuration ····································· |rest-nvim.config|
+
+rest.setup({user_configs?})                                         *rest.setup*
+    @deprecated use `vim.g.rest_nvim` instead
+    Set up rest.nvim
+    This api does nothing but set `vim.g.rest_nvim` to `user_configs`
+
+    Parameters: ~
+        {user_configs?}  (rest.Opts)  User configurations
+
+
+==============================================================================
+rest.nvim user commands                                     *rest-nvim.commands*
+
+
+ `:Rest {command {args?}}`
+
+ command                         action
+------------------------------------------------------------------------------
+
+ open                            Open result pane.
+
+ run {name?}                     Execute a HTTP request with given `name`. If
+                                 no name is provided, run request under the
+                                 cursor.
+
+ last                            Re-run the last executed request.
+
+ logs                            Open the rest.nvim logs file.
+
+ cookies                         Open the rest.nvim cookies file.
+
+ env show                        Show environment file registered to current
+                                 `.http` file. (Just `:Rest env` also work)
+
+ env select                      Select and register environment file to
+                                 current `.http` file via |vim.ui.select()|.
+
+ env set {path}                  Register environment file to current `.http`
+                                 file. `path` should be relative to Neovim's
+                                 cwd.
+
+ curl yank {name?}               (experimental) Copy curl command equivelant
+                                 to HTTP request with given `name`. If no name
+                                 is provided, copy from request under the
+                                 cursor.
+
+ curl comment {name?}            (experimental) Similar to `:Rest curl yank`
+                                 but directly insert curl command as a comment
+                                 instead.
+
+NOTE: All `:Rest` commands opening new window support |command-modifiers|.
+For example, you can run `:hor Rest open` to open result pane in horizontal
+split or run `:tab Rest logs` to open logs file in a new tab.
+
+
+==============================================================================
+rest.nvim user events                                         *rest-nvim.events*
+
+
+ rest.nvim user events
+
+rest.nvim provides several |User| |events|.
+
+RestRequest or RestRequestPre                       *RestRequest* *RestRequestPre*
+    Just before executing a request. The request object (with |rest.Request|
+    type) will be temporarily assigned to the global variable `rest_request`.
+    Modifing this variable will affect the actual request. Example: >lua
+
+    vim.api.nvim_create_autocmd("User", {
+        pattern = "RestRequestPre",
+        callback = function()
+            local req = _G.rest_request
+            req.headers["user-agent"] = { "myneovim" }
+        end,
+    })
+<
+
+RestResponse or RestResponsePre                   *RestResponse* *RestResponsePre*
+    After received the response and all response handlers are executed.
+    The request and response objects (|rest.Request| and |rest.Response|
+    types) will be termporarily assigned to the global variabels
+    `rest_request` and `rest_response`. Modifing this variable won't affect
+    response handlers but updating cookies and rendering result UI will be
+    affected. Example: >lua
+
+    vim.api.nvim_create_autocmd("User", {
+        pattern = "RestResponsePre",
+        callback = function()
+            local req = _G.rest_request
+            local res = _G.rest_response
+            req.url = url_decode(req.url)
+            res.body = trim_trailing_whitespace(res.body)
+        end,
+    })
+<
+
+
+==============================================================================
+rest.nvim configuration                                       *rest-nvim.config*
+
+
+ rest.nvim configuration options
+
+ You can set rest.nvim configuration options via `vim.g.rest_nvim`.
+
+>lua
+ ---@type rest.Opts
+ vim.g.rest_nvim
+<
+
+
+                                                               *vim.g.rest_nvim*
+                                                                   *g:rest_nvim*
+rest.Opts                                                            *rest.Opts*
+
+    Fields: ~
+        {custom_dynamic_variables?}  (table<string,fun():string>)   Table of custom dynamic variables
+        {request?}                   (rest.Opts.Request)
+        {response?}                  (rest.Opts.Response)
+        {clients?}                   (rest.Opts.Clients)
+        {cookies?}                   (rest.Opts.Cookies)
+        {env?}                       (rest.Opts.Env)
+        {ui?}                        (rest.Opts.UI)
+        {highlight?}                 (rest.Opts.Highlight)
+
+
+rest.Opts.Request                                            *rest.Opts.Request*
+
+    Fields: ~
+        {skip_ssl_verification?}  (boolean)                   Skip SSL verification, useful for unknown certificates (Default: `false`)
+        {hooks?}                  (rest.Opts.Request.Hooks)   Default request hooks (aka. pre-request scripts) configuration
+
+
+rest.Opts.Request.Hooks                                *rest.Opts.Request.Hooks*
+
+    Fields: ~
+        {encode_url?}        (boolean)   Encode URL before making request (Default: `true`)
+        {user_agent?}        (string)    Set `User-Agent` header when it is empty. Set as empty string to disable.
+                                         (Default: `rest.nvim {version}`)
+        {set_content_type?}  (boolean)   Set `Content-Type` header when it is empty but request body is provided
+
+
+rest.Opts.Response                                          *rest.Opts.Response*
+
+    Fields: ~
+        {hooks?}  (rest.Opts.Response.Hooks)   Default response hooks (aka. request handlers) configuration
+
+
+rest.Opts.Response.Hooks                              *rest.Opts.Response.Hooks*
+
+    Fields: ~
+        {decode_url?}  (boolean)   Decode url segments on response UI too improve readability (Default: `true`)
+        {format?}      (boolean)   Format the response body with |'formatexpr'| or |'formatprg'| (Default: `true`)
+                                   NOTE: |vim.lsp.formatexpr()| won't work (see
+                                   <https://github.com/rest-nvim/rest.nvim/issues/414#issuecomment-2308910953>)
+
+
+rest.Opts.Clients                                            *rest.Opts.Clients*
+
+    Fields: ~
+        {curl?}  (rest.Opts.Clients.Curl)
+
+
+rest.Opts.Clients.Curl                                  *rest.Opts.Clients.Curl*
+
+    Fields: ~
+        {statistics?}  (RestStatisticsStyle[])         Statistics to parse from curl request output
+        {opts?}        (rest.Opts.Clients.Curl.Opts)   Curl-specific options
+
+
+rest.Opts.Clients.Curl.Opts                        *rest.Opts.Clients.Curl.Opts*
+
+    Fields: ~
+        {set_compressed?}  (boolean)                     Add `--compressed` argument when `Accept-Encoding` header includes `gzip`
+                                                         (Default: `false`)
+        {certificates?}    (table<string,Certificate>)   Add `--cert`, `--key` or `--pem` to the `curl` command when required with specific domains
+                                                         (default: `nil`)
+
+
+Certificate                                                        *Certificate*
+
+    Fields: ~
+        {set_certificate_crt}  (string)
+        {set_certificate_key}  (string)
+
+
+RestStatisticsStyle                                        *RestStatisticsStyle*
+
+    Fields: ~
+        {id}       (string)           Identifier used used in curl's `--write-out` option
+                                      See `man curl` for more info
+        {title?}   (string)           Title used on Statistics pane
+        {winbar?}  (string|boolean)   Winbar title. Set to `false` or `nil` to not show for winbar, set to empty string
+                                      to hide title If true, rest.nvim will use lowered `title` field
+
+
+rest.Opts.Cookies                                            *rest.Opts.Cookies*
+
+    Fields: ~
+        {enable?}  (boolean)   Enable the cookies support (Default: `true`)
+        {path?}    (string)    File path to save cookies file
+                               (Default: `"stdpath("data")/rest-nvim.cookies"`)
+
+
+rest.Opts.Env                                                    *rest.Opts.Env*
+
+    Fields: ~
+        {enable?}   (boolean)          Enable the `.env` files support (Default: `true`)
+        {pattern?}  (string)           Environment variables file pattern for telescope.nvim (Default: `"%.env.*"`)
+        {find?}     (fun():string[])   Function lists environment files (used for `:Rest env select`)
+                                       Searches for file matching *rest.Opts.Env.pattern* under same directory by
+                                       default
+
+
+rest.Opts.UI                                                      *rest.Opts.UI*
+
+    Fields: ~
+        {winbar?}    (boolean)                 Set winbar in result pane (Default: `true`)
+        {keybinds?}  (rest.Opts.UI.Keybinds)   Default mappings for result pane
+
+
+rest.Opts.UI.Keybinds                                    *rest.Opts.UI.Keybinds*
+
+    Fields: ~
+        {prev?}  (string)   Mapping for cycle to previous result pane (Default: `"H"`)
+        {next?}  (string)   Mapping for cycle to next result pane (Default: `"L"`)
+
+
+rest.Opts.Highlight                                        *rest.Opts.Highlight*
+
+    Fields: ~
+        {enable?}   (boolean)   Enable highlight-on-request (Default: `true`)
+        {timeout?}  (number)    Duration time of the request highlighting in milliseconds (Default: `750`)
+
+
+vim:tw=78:ts=8:noet:ft=help:norl:

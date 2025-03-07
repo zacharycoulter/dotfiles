@@ -1,0 +1,85 @@
+rock_manifest = {
+   doc = {
+      ["rest-nvim-api.txt"] = "9904864c49e5815ea2c280cb1907b8a4",
+      ["rest-nvim-client-curl.txt"] = "6ef9e09f9a749393b39b59514759d778",
+      ["rest-nvim.txt"] = "d67286fb8ab7054fdb59dbd21f3fd211"
+   },
+   ftdetect = {
+      ["http.lua"] = "8fc972e3993e5a1ccff7a5675e764fc1"
+   },
+   ftplugin = {
+      ["http.lua"] = "92d1c72ff61c10462893d5e72711a40b"
+   },
+   lua = {
+      lualine = {
+         components = {
+            ["rest.lua"] = "14334b62582ccd931d0d8464b40288fb"
+         }
+      },
+      ["rest-nvim"] = {
+         ["api.lua"] = "f31fdccb7b242239a78c9790756de0aa",
+         ["autocmds.lua"] = "0cbe76d5b0257b1aa978933fba262f89",
+         client = {
+            curl = {
+               ["cli.lua"] = "913dcae478e15b8e3b996cdd30727ad6",
+               ["libcurl.lua"] = "9a28f8aa7ae3be2380cd19836b6a3ddc",
+               ["utils.lua"] = "4cd73c2e1d52cce1cad08e99c84989a3"
+            },
+            ["curl_cli.lua"] = "634f1a5c691a876adc3a78ecda57c126",
+            ["init.lua"] = "b3ced40a1128ae685c904eb434a4693d",
+            ["libcurl.lua"] = "46b40bd8da7c4040fb00003b4b90625b"
+         },
+         ["commands.lua"] = "d85088df52cacfa6db390305a6b34f62",
+         config = {
+            ["check.lua"] = "70abecb87ef73177c0c83d002b4b542e",
+            ["default.lua"] = "ff51efd59479184afc0b5aac8a558484",
+            ["init.lua"] = "d6dbd26fefefc599feb18eb35dc81892"
+         },
+         ["context.lua"] = "0c53e8b2f431fe86b7731b120169bb94",
+         ["cookie_jar.lua"] = "dab4d58cb6b51360f9c2923175de4ffd",
+         ["dotenv.lua"] = "71c1897302873b48f1ebcf16903cca3f",
+         ["health.lua"] = "0c862463f4accaf870807c96032bba32",
+         ["init.lua"] = "2446839ad0b7ee34bbceacd6d5a4eeae",
+         ["logger.lua"] = "407a81acc3dde177773fd42c8132e040",
+         parser = {
+            ["dotenv.lua"] = "29525ab1442e27ba5a43205531cd93df",
+            ["init.lua"] = "5aa81320b353a0f838c34b04f92075a8"
+         },
+         ["request.lua"] = "f4e726210f7505aedfdbf0f25b65a7ae",
+         script = {
+            ["init.lua"] = "716313b30471cde75fbf83a36291071d",
+            ["lua.lua"] = "dc9696413fd0b4cc598a5f0d6dfb36eb"
+         },
+         ui = {
+            ["help.lua"] = "58481f5650a636c30e01b7350d055ae6",
+            ["panes.lua"] = "80785aa05f4ef1a417413e1768e38d04",
+            ["result.lua"] = "30e8d61f31c426879dfd98d67db4b608"
+         },
+         ["utils.lua"] = "6ab8ec3612904b08ed3fe91b41c50eda"
+      },
+      telescope = {
+         _extensions = {
+            ["rest.lua"] = "3b70754cb5fb27d07e3906c544525388"
+         }
+      }
+   },
+   plugin = {
+      ["rest-nvim.lua"] = "ec12db8d2aae1e08b056d83fccb57c98"
+   },
+   queries = {
+      http = {
+         ["folds.scm"] = "8ac9fe6cb90ebc6c51675780a68a665c",
+         ["highlights.scm"] = "6e23b041ee6e57c23d9f91d82908c414",
+         ["injections.scm"] = "84b308dc3e8ea2f1295fcba9b536ee94"
+      },
+      rest_nvim_result = {
+         ["folds.scm"] = "a14c75ad818c1b41214c5e35aca2643a",
+         ["highlights.scm"] = "a14c75ad818c1b41214c5e35aca2643a",
+         ["injections.scm"] = "a14c75ad818c1b41214c5e35aca2643a"
+      }
+   },
+   ["rest.nvim-3.11.2-1.rockspec"] = "9c583a24c10bde2e92dd65fcde88da53",
+   syntax = {
+      ["http_stat.vim"] = "059a60f49cdee1407ee61c159efa3679"
+   }
+}

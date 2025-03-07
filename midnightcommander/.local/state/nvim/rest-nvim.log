@@ -1,0 +1,7 @@
+[START][2025-01-24 12:56:03] rest.nvim logging initiated
+ERROR | 2025-01-24 13:29:37 | ...re/nvim/lazy/rest.nvim/lua/rest-nvim/client/curl/cli.lua:81 | Error while parsing verbose curl output:
+
+ERROR | 2025-01-24 15:03:04 | ...re/nvim/lazy/rest.nvim/lua/rest-nvim/client/curl/cli.lua:81 | Error while parsing verbose curl output:
+
+ERROR | 2025-01-24 15:06:30 | ...re/nvim/lazy/rest.nvim/lua/rest-nvim/client/curl/cli.lua:81 | Error while parsing verbose curl output:
+

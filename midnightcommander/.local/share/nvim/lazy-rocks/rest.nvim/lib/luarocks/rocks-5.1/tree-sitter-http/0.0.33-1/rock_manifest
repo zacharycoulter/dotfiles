@@ -1,0 +1,17 @@
+rock_manifest = {
+   lib = {
+      parser = {
+         ["http.so"] = "4279b4743ee28b30d3733fe7d94a4a86"
+      }
+   },
+   parser = {
+      ["http.so"] = "4279b4743ee28b30d3733fe7d94a4a86"
+   },
+   queries = {
+      http = {
+         ["highlights.scm"] = "dfd88f2d44b1ccaa39ec265d101c40f4",
+         ["injections.scm"] = "108074f04de8694e54c8d2484fc39387"
+      }
+   },
+   ["tree-sitter-http-0.0.33-1.rockspec"] = "1da0f6ec983381cf8d2d270cb9119042"
+}

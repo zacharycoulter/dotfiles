@@ -1,0 +1,7 @@
+#sidebar-main:not(:hover){width: 50px !important;}
+
+#sidebar-main:not(:hover) .tabbrowser-tab{width: 40px !important; min-width: 0px !important}
+
+#sidebar-main:not(:hover) .tab-label-container, #sidebar-main:not(:hover) .tab-close-button{ display: none !important; }
+
+#sidebar-main:not(:hover) #vertical-tabs-newtab-button{width: 40px !important; min-width: 0px !important; appearance: none !important;}

@@ -2,6 +2,7 @@ source <(fzf --zsh)
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
+export XDG_CONFIG_HOME="$HOME/.config"
 export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
 
 export NVM_DIR="$HOME/.nvm"
@@ -15,3 +16,6 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # bun completions
 [ -s "/Users/zachary.coulter/.bun/_bun" ] && source "/Users/zachary.coulter/.bun/_bun"
+
+alias lg="lazygit"
+alias nv="nvim"

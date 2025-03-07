@@ -1,0 +1,22 @@
+[INFO  Thu Jan  2 10:53:45 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:184: Executing installer for Package(name=lua-language-server) {}
+[INFO  Thu Jan  2 10:53:45 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:184: Executing installer for Package(name=typescript-language-server) {}
+[INFO  Thu Jan  2 10:53:45 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:184: Executing installer for Package(name=gopls) {}
+[INFO  Thu Jan  2 10:53:45 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:184: Executing installer for Package(name=svelte-language-server) {}
+[INFO  Thu Jan  2 10:53:46 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:184: Executing installer for Package(name=html-lsp) {}
+[INFO  Thu Jan  2 10:53:46 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:245: Installation succeeded for Package(name=lua-language-server)
+[INFO  Thu Jan  2 10:53:47 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:184: Executing installer for Package(name=json-lsp) {}
+[INFO  Thu Jan  2 10:53:47 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:245: Installation succeeded for Package(name=typescript-language-server)
+[INFO  Thu Jan  2 10:53:49 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:184: Executing installer for Package(name=templ) {}
+[INFO  Thu Jan  2 10:53:49 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:245: Installation succeeded for Package(name=json-lsp)
+[INFO  Thu Jan  2 10:53:49 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:245: Installation succeeded for Package(name=html-lsp)
+[INFO  Thu Jan  2 10:53:49 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:245: Installation succeeded for Package(name=gopls)
+[INFO  Thu Jan  2 10:53:49 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:245: Installation succeeded for Package(name=svelte-language-server)
+[INFO  Thu Jan  2 10:53:50 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:245: Installation succeeded for Package(name=templ)
+[INFO  Tue Jan 21 11:09:19 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:184: Executing installer for Package(name=pyright) {}
+[INFO  Tue Jan 21 11:09:21 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:245: Installation succeeded for Package(name=pyright)
+[INFO  Tue Jan 21 11:09:25 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:184: Executing installer for Package(name=svelte-language-server) Package(name=svelte-language-server)
+[INFO  Tue Jan 21 11:09:29 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:245: Installation succeeded for Package(name=svelte-language-server)
+[INFO  Thu Jan 23 16:09:14 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:184: Executing installer for Package(name=vue-language-server) {}
+[INFO  Thu Jan 23 16:09:21 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:245: Installation succeeded for Package(name=vue-language-server)
+[INFO  Sat Jan 25 19:11:21 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:184: Executing installer for Package(name=biome) {}
+[INFO  Sat Jan 25 19:11:22 2025] ...e/nvim/lazy/mason.nvim/lua/mason-core/installer/init.lua:245: Installation succeeded for Package(name=biome)
