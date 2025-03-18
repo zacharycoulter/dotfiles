@@ -2,6 +2,13 @@
 xcode-select --install
 sudo xcodebuild -license accept
 
+# set up git repos
+mkdir ~/git
+mkdir ~/git/personal
+mkdir ~/git/work
+cd ~/git/personal
+git clone git@github.com:zacharycoulter/dotfiles.git
+
 # install homebrew
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/zacharycoulter/.zprofile
