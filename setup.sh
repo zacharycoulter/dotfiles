@@ -10,9 +10,10 @@ cd ~/git/personal
 git clone git@github.com:zacharycoulter/dotfiles.git
 
 # install homebrew
-NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/zacharycoulter/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"
+NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# go into dotfiles directory 
+cd dotfiles
 
 # install apps from brewfile
 brew bundle install --file=./Brewfile/Brewfile_2024-12-30
