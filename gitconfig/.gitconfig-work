@@ -1,6 +1,6 @@
 [user]
   name = Zachary Coulter
-  email = zachary.coulter@joinappex.com
+  email = coulter@broadburst.io
   signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBVGqgr6jp7VINEE3DMZBZgAKS10aEv7RKTimQL+LtMg
 
 [gpg]
