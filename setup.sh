@@ -7,14 +7,11 @@ NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Ho
 (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/zacharycoulter/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# install gnu stow
-brew install stow
+# install apps from brewfile
+brew bundle install --file=./Brewfile/Brewfile_2024-12-30
 
 # run stow
 stow -t ~ */
-
-# install apps from brewfile
-brew bundle install --file=./Brewfile/Brewfile_2024-12-30
 
 # set macos defaults
 defaults write -g _HIEnableThemeSwitchHotKey 1 # Set dark mode
